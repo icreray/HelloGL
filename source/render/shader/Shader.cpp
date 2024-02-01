@@ -1,13 +1,15 @@
 #include "Shader.hpp"
 
-#include <GL/glew.h>
 #include <iostream>
+#include <GL/glew.h>
+
+#include "render/shader/ShaderType.hpp"
 
 namespace hellogl {
 
     namespace internal {
-        uint32 compileShader(const char* shaderSource, GLenum shaderType) {
-            uint32 shader = glCreateShader(shaderType);
+        uint32 compileShader(const char* shaderSource, const ShaderType& shaderType) {
+            uint32 shader = glCreateShader(shaderType.AsGlEnum);
             glShaderSource(shader, 1, &shaderSource, nullptr);
             glCompileShader(shader);
 
@@ -17,7 +19,7 @@ namespace hellogl {
             glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
             if (not success) {
                 glGetShaderInfoLog(shader, sizeof(infoLog), nullptr, infoLog);
-                std::cerr << "Error: Shader compilation failed\n    " << infoLog << '\n';
+                std::cerr << "Error: " << shaderType.Name << " shader compilation failed\n    " << infoLog << '\n';
             }
 
             return shader;
@@ -46,8 +48,8 @@ namespace hellogl {
     }
 
     Shader::Shader(const std::string& vertexSource, const std::string& fragmentSource) {
-        uint32 vertexShader = internal::compileShader(vertexSource.c_str(), GL_VERTEX_SHADER);
-        uint32 fragmentShader = internal::compileShader(fragmentSource.c_str(), GL_FRAGMENT_SHADER);
+        uint32 vertexShader = internal::compileShader(vertexSource.c_str(), ShaderType::Vertex);
+        uint32 fragmentShader = internal::compileShader(fragmentSource.c_str(), ShaderType::Fragment);
         _programId = internal::linkProgram(vertexShader, fragmentShader);
     }
 

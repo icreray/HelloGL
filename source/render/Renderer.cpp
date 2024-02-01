@@ -4,36 +4,12 @@
 #include <stdexcept>
 #include <GL/glew.h>
 
-#include "Shader.hpp"
+#include "render/shader/Shader.hpp"
+#include "util/FileUtils.hpp"
 
 namespace hellogl {
 
     //TODO: Cleanup this mess :P
-
-    const char* vertexSource = R"(
-            #version 450 core
-
-            layout (location = 0) in vec3 aPos;
-            layout (location = 1) in vec3 aColor;
-
-            out vec3 color;
-
-            void main() {
-                gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
-                color = aColor;
-            }
-    )";
-
-    const char* fragmentSource = R"(
-        #version 450 core
-
-        in vec3 color;
-        out vec4 fragColor;
-
-        void main() {
-                fragColor = vec4(color.rgb, 1.0);
-        }
-    )";
 
     const float Vertices[] {
         -0.5, -0.5, 0.0, 0.8, 0.2, 0.5,
@@ -77,6 +53,9 @@ namespace hellogl {
 
         glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3*sizeof(float)));
         glEnableVertexAttribArray(1);
+
+        std::string vertexSource = FileUtils::readString("resources/shaders/default.vert");
+        std::string fragmentSource = FileUtils::readString("resources/shaders/default.frag");
 
         _defaultShader = make_unique<Shader>(vertexSource, fragmentSource);
     }

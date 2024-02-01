@@ -2,7 +2,7 @@
 #define HELLOGL_RENDERER_HPP_
 
 #include "common/TypeAliases.hpp"
-#include "render/Shader.hpp"
+#include "render/shader/Shader.hpp"
 
 namespace hellogl {
 
