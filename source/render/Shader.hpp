@@ -9,7 +9,7 @@ namespace hellogl {
 
     class Shader {
     public:
-        Shader(const char* vertexSource, const char* fragmentSource);
+        Shader(const std::string& vertexSource, const std::string& fragmentSource);
 
         Shader(Shader&&) = delete;
         Shader& operator=(Shader&&) = delete;
@@ -22,8 +22,6 @@ namespace hellogl {
 
     private:
         uint32 _programId;
-
-        explicit Shader(uint32 programId);
     };
 }
 

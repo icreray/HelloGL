@@ -5,7 +5,7 @@
 
 namespace hellogl {
 
-    namespace {
+    namespace internal {
         uint32 compileShader(const char* shaderSource, GLenum shaderType) {
             uint32 shader = glCreateShader(shaderType);
             glShaderSource(shader, 1, &shaderSource, nullptr);
@@ -45,20 +45,17 @@ namespace hellogl {
         }
     }
 
-    Shader::Shader(const char* vertexSource, const char* fragmentSource) {
-        uint32 vertexShader = compileShader(vertexSource, GL_VERTEX_SHADER);
-        uint32 fragmentShader = compileShader(fragmentSource, GL_FRAGMENT_SHADER);
-        _programId = linkProgram(vertexShader, fragmentShader);
+    Shader::Shader(const std::string& vertexSource, const std::string& fragmentSource) {
+        uint32 vertexShader = internal::compileShader(vertexSource.c_str(), GL_VERTEX_SHADER);
+        uint32 fragmentShader = internal::compileShader(fragmentSource.c_str(), GL_FRAGMENT_SHADER);
+        _programId = internal::linkProgram(vertexShader, fragmentShader);
+    }
+
+    Shader::~Shader() {
+        glDeleteProgram(_programId);
     }
 
     void Shader::use() const {
         glUseProgram(_programId);
-    }
-
-    Shader::Shader(uint32 programId) :
-        _programId{programId} {}
-
-    Shader::~Shader() {
-        glDeleteProgram(_programId);
     }
 }

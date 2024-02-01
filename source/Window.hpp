@@ -1,7 +1,7 @@
 #ifndef HELLOGL_WINDOW_HPP_
 #define HELLOGL_WINDOW_HPP_
 
-#include <string_view>
+#include <string>
 #include <GLFW/glfw3.h>
 
 #include "common/TypeAliases.hpp"
@@ -10,7 +10,13 @@ namespace hellogl {
 
     class Window {
     public:
-        Window(int32 width, int32 height, std::string_view title);
+        Window(int32 width, int32 height, const std::string& title);
+
+        Window(const Window&) = delete;
+        Window& operator=(const Window&) = delete;
+        Window(Window&&) = delete;
+        Window& operator=(const Window&&) = delete;
+
         ~Window();
 
         [[nodiscard]]
