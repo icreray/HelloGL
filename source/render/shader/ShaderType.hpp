@@ -2,14 +2,15 @@
 #define HELLOGL_SHADER_TYPE_HPP_
 
 #include <string>
-#include <GL/glew.h>
+
+#include "common/TypeAliases.hpp"
 
 namespace hellogl {
 
     struct ShaderType {
     public:
         const std::string Name;
-        const GLenum AsGlEnum;
+        const uint32 AsGlEnum;
 
         static const ShaderType Vertex;
         static const ShaderType Fragment;
@@ -20,7 +21,7 @@ namespace hellogl {
         ShaderType& operator=(ShaderType&&) = delete;
 
     private:
-        ShaderType(const std::string& name, GLenum asGlEnum);
+        ShaderType(const std::string& name, uint32 asGlEnum);
 
     };
 }

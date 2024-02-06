@@ -1,5 +1,7 @@
 #include "Window.hpp"
 
+#include <GLFW/glfw3.h>
+
 namespace hellogl {
 
     Window::Window(int32 width, int32 height, const std::string& title) {

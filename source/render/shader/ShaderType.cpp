@@ -1,5 +1,7 @@
 #include "ShaderType.hpp"
 
+#include <GL/glew.h>
+
 namespace hellogl {
     const ShaderType ShaderType::Vertex{"vertex", GL_VERTEX_SHADER};
     const ShaderType ShaderType::Fragment{"fragment", GL_FRAGMENT_SHADER};

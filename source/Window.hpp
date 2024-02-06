@@ -2,9 +2,10 @@
 #define HELLOGL_WINDOW_HPP_
 
 #include <string>
-#include <GLFW/glfw3.h>
 
 #include "common/TypeAliases.hpp"
+
+struct GLFWwindow;
 
 namespace hellogl {
 
