@@ -2,6 +2,7 @@
 #define HELLOGL_SHADER_HPP_
 
 #include <string>
+#include <glm/glm.hpp>
 
 #include "common/TypeAliases.hpp"
 
@@ -19,9 +20,12 @@ namespace hellogl {
         ~Shader();
 
         void use() const;
+        void setViewProjection(glm::mat4 value);
 
     private:
-        uint32 _programId;
+        uint32 _programId{0};
+
+        uint32 _viewProjectionUniform{0};
     };
 }
 

@@ -1,6 +1,7 @@
 #include "Shader.hpp"
 
 #include <iostream>
+#include <glm/gtc/type_ptr.hpp>
 #include <GL/glew.h>
 
 #include "render/shader/ShaderType.hpp"
@@ -51,6 +52,8 @@ namespace hellogl {
         uint32 vertexShader = internal::compileShader(vertexSource.c_str(), ShaderType::Vertex);
         uint32 fragmentShader = internal::compileShader(fragmentSource.c_str(), ShaderType::Fragment);
         _programId = internal::linkProgram(vertexShader, fragmentShader);
+
+        _viewProjectionUniform = glGetUniformLocation(_programId, "viewProjection");
     }
 
     Shader::~Shader() {
@@ -59,5 +62,9 @@ namespace hellogl {
 
     void Shader::use() const {
         glUseProgram(_programId);
+    }
+
+    void Shader::setViewProjection(glm::mat4 value) {
+        glUniformMatrix4fv(_viewProjectionUniform, 1, GL_FALSE, glm::value_ptr(value));
     }
 }

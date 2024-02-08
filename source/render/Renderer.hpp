@@ -3,6 +3,7 @@
 
 #include "common/TypeAliases.hpp"
 #include "render/shader/Shader.hpp"
+#include "StaticMesh.hpp"
 
 namespace hellogl {
 
@@ -19,6 +20,7 @@ namespace hellogl {
 
     private:
         unique<Shader> _defaultShader{nullptr};
+        unique<StaticMesh> _cubeMesh{nullptr};
 
     };
 }

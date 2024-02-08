@@ -6,6 +6,8 @@
 
 namespace hellogl {
 
+    using ubyte = unsigned char;
+
     using int32 = int32_t;
     using uint32 = uint32_t;
 
