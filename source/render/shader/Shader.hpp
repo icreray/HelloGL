@@ -20,12 +20,14 @@ namespace hellogl {
         ~Shader();
 
         void use() const;
-        void setViewProjection(glm::mat4 value);
+        void setModelView(glm::mat4 value);
+        void setProjection(glm::mat4 value);
 
     private:
         uint32 _programId{0};
 
-        uint32 _viewProjectionUniform{0};
+        uint32 _modelViewUniform{0};
+        uint32 _projectionUniform{0};
     };
 }
 

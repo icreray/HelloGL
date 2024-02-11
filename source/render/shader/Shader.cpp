@@ -53,7 +53,8 @@ namespace hellogl {
         uint32 fragmentShader = internal::compileShader(fragmentSource.c_str(), ShaderType::Fragment);
         _programId = internal::linkProgram(vertexShader, fragmentShader);
 
-        _viewProjectionUniform = glGetUniformLocation(_programId, "viewProjection");
+        _modelViewUniform = glGetUniformLocation(_programId, "ModelView");
+        _projectionUniform = glGetUniformLocation(_programId, "Projection");
     }
 
     Shader::~Shader() {
@@ -64,7 +65,11 @@ namespace hellogl {
         glUseProgram(_programId);
     }
 
-    void Shader::setViewProjection(glm::mat4 value) {
-        glUniformMatrix4fv(_viewProjectionUniform, 1, GL_FALSE, glm::value_ptr(value));
+    void Shader::setModelView(glm::mat4 value) {
+        glUniformMatrix4fv(_modelViewUniform, 1, GL_FALSE, glm::value_ptr(value));
+    }
+
+    void Shader::setProjection(glm::mat4 value) {
+        glUniformMatrix4fv(_projectionUniform, 1, GL_FALSE, glm::value_ptr(value));
     }
 }

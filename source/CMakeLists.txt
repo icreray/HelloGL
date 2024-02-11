@@ -1,25 +1,5 @@
-set(HEADERS
-        Window.hpp
-        common/TypeAliases.hpp
-        render/Meshes.cpp
-        render/Renderer.hpp
-        render/StaticMesh.hpp
-        render/shader/Shader.hpp
-        render/shader/ShaderType.hpp
-        util/FileUtils.hpp
-
-)
-
-set(SOURCES
-        Main.cpp
-        Window.cpp
-        render/Meshes.cpp
-        render/Renderer.cpp
-        render/StaticMesh.cpp
-        render/shader/Shader.cpp
-        render/shader/ShaderType.cpp
-        util/FileUtils.cpp
-)
+file(GLOB_RECURSE HEADERS *.hpp)
+file(GLOB_RECURSE SOURCES *.cpp)
 
 add_executable(main ${HEADERS} ${SOURCES})
 target_link_libraries(main ${GL_LIBS} ${UTIL_LIBS})

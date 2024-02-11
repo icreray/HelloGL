@@ -2,8 +2,8 @@
 #define HELLOGL_RENDERER_HPP_
 
 #include "common/TypeAliases.hpp"
+#include "render/mesh/StaticMesh.hpp"
 #include "render/shader/Shader.hpp"
-#include "StaticMesh.hpp"
 
 namespace hellogl {
 
@@ -18,7 +18,12 @@ namespace hellogl {
 
         void render();
 
+        void setViewport(int32 width, int32 height);
+
     private:
+        float _viewportWidth;
+        float _viewportHeight;
+
         unique<Shader> _defaultShader{nullptr};
         unique<StaticMesh> _cubeMesh{nullptr};
 

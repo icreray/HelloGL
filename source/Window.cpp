@@ -13,6 +13,8 @@ namespace hellogl {
 
         _window = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
         glfwMakeContextCurrent(_window);
+
+        setupCallbacks();
     }
 
     Window::~Window() {
@@ -30,5 +32,20 @@ namespace hellogl {
 
     void Window::swapBuffers() {
         glfwSwapBuffers(_window);
+    }
+
+    void Window::setResizeCallback(ResizeCallback callback) {
+        _resizeCallback = std::move(callback);
+    }
+
+    void Window::setupCallbacks() {
+        glfwSetWindowUserPointer(_window, this);
+        auto resizeCallback = [](GLFWwindow* window, int width, int height) {
+            auto* userPointer = static_cast<Window*>(glfwGetWindowUserPointer(window));
+            if (userPointer->_resizeCallback) {
+                userPointer->_resizeCallback(userPointer, width, height);
+            }
+        };
+        glfwSetWindowSizeCallback(_window, resizeCallback);
     }
 }

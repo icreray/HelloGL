@@ -2,14 +2,15 @@
 
 #include <memory>
 #include <stdexcept>
+#include <iostream>
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
+#include <glm/ext/matrix_transform.hpp>
 #include <GL/glew.h>
-#include <iostream>
 
+#include "render/mesh/Meshes.hpp"
 #include "render/shader/Shader.hpp"
 #include "util/FileUtils.hpp"
-#include "Meshes.hpp"
 
 namespace hellogl {
 
@@ -55,7 +56,21 @@ namespace hellogl {
     void Renderer::render() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         _defaultShader->use();
+
+        //TODO: Move into camera class
+        glm::mat4 projection{1};
+        projection = glm::scale(projection, {_viewportHeight/_viewportWidth, 1, 1});
+
+        _defaultShader->setProjection(projection);
+
         glBindTexture(GL_TEXTURE_2D, texture);
         _cubeMesh->render(*_defaultShader);
+    }
+
+    void Renderer::setViewport(int32 width, int32 height) {
+        _viewportWidth = width;
+        _viewportHeight = height;
+
+        glViewport(0, 0, width, height);
     }
 }

@@ -1,10 +1,10 @@
 #include "StaticMesh.hpp"
 
 #include <utility>
-#include <GL/glew.h>
+#include "GL/glew.h"
 
-#include <glm/ext/matrix_transform.hpp>
-#include <GLFW/glfw3.h>
+#include "glm/ext/matrix_transform.hpp"
+#include "GLFW/glfw3.h"
 
 namespace hellogl {
 
@@ -31,7 +31,10 @@ namespace hellogl {
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
 
         glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoord));
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) offsetof(Vertex, Normal));
+
+        glEnableVertexAttribArray(2);
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoord));
 
         glBindVertexArray(0);
     }
@@ -48,10 +51,9 @@ namespace hellogl {
         shader.use();
 
         //TODO: move this test code outside
-        glm::mat4 viewProjection{1};
-        viewProjection = glm::scale(viewProjection, {720/1200.0, 1, 1});
-        viewProjection = glm::rotate(viewProjection, (float)glfwGetTime(), {1, 1, 1});
-        shader.setViewProjection(viewProjection);
+        glm::mat4 modelView{1};
+        modelView = glm::rotate(modelView, (float)glfwGetTime(), {1, 1, 1});
+        shader.setModelView(modelView);
         //end
 
         glDrawElements(GL_TRIANGLES, _indices.size(), GL_UNSIGNED_INT, 0);
