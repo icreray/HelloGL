@@ -52,7 +52,7 @@ namespace hellogl {
 
         //TODO: move this test code outside
         glm::mat4 modelView{1};
-        modelView = glm::rotate(modelView, (float)glfwGetTime(), {1, 1, 1});
+        modelView = glm::rotate(modelView, (float)glfwGetTime(), {1, 0, 1});
         shader.setModelView(modelView);
         //end
 

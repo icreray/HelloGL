@@ -37,7 +37,6 @@ namespace hellogl {
 
         void setupCallbacks();
     };
-
 }
 
 #endif

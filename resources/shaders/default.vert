@@ -13,7 +13,7 @@ out vec3 FragPosition;
 
 void main() {
     gl_Position = Projection * ModelView * vec4(aPosition, 1.0);
-    Normal = aNormal;
+    Normal = (Projection * ModelView * vec4(aNormal, 1.0)).xyz;
     TexCoord = aTexCoord;
     FragPosition = (ModelView * gl_Position).xyz;
 }
